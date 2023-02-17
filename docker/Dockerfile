@@ -45,8 +45,9 @@ RUN R --quiet -e "install.packages(c(\
     'devtools', \
     'uuid', \
     'digest'))"
-RUN R --quiet -e "devtools::install_github('IRkernel/IRkernel')"
-RUN R --quiet -e "IRkernel::installspec()"
+#this is for jupyter and requires jupyter
+#RUN R --quiet -e "devtools::install_github('IRkernel/IRkernel')"
+#RUN R --quiet -e "IRkernel::installspec()"
 
 FROM base-setup-r as r-extras
 # Additional packages for demo: 'TDA','TDAmapper','igraph'
