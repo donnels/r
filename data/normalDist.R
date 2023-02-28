@@ -36,7 +36,12 @@ colnames(isectdf) <- c("x", "density","percent")
 # Define color cutoffs for the density plot
 labeldf <- data.frame(
   'colors' = c("red", "orange", "yellow", "green", "blue", "purple"),
-  'percent' = c("2.3%", "13.6%", "34.1%", "34.1%", "13.6%", "2.3%" ), 
+  'percent' = c(round(pnorm(2,lower.tail=F)*100,roundn),
+                round((pnorm(1,lower.tail=F)-pnorm(2,lower.tail=F))*100,roundn), 
+                round((pnorm(0,lower.tail=F)-pnorm(1,lower.tail=F))*100,roundn), 
+                round((pnorm(0,lower.tail=F)-pnorm(1,lower.tail=F))*100,roundn), 
+                round((pnorm(1,lower.tail=F)-pnorm(2,lower.tail=F))*100,roundn), 
+                round(pnorm(2,lower.tail=F)*100,roundn) ), 
   'percentxPos' = c(-3, -1.5, -0.5, .5, 1.5, 3 ), 
   'labels1' = c("-Inf to -2", "2 to -1", "-1 to 0", "0 to 1", "1 to 2", "2 to Inf"), 
   'labels' = c("<= -2", "-2 to -1", "-1 to 0", "0 to 1", "1 to 2", ">= 2")) 
