@@ -20,7 +20,8 @@ FROM debian:stable-slim as base-setup
     		wget curl ca-certificates git \
             libssl-dev libunwind-dev \
     		fontconfig fonts-texgyre fonts-liberation fonts-liberation2 ghostscript \
-            r-base-core r-base-dev r-api-4.0 r-cran-devtools \
+            r-cran-rlang r-base-core r-base-dev r-api-4.0 r-cran-devtools \
+            r-cran-cairo lib-cairo2-dev \
         && apt-get purge && apt-get clean && rm -rf /var/lib/apt/lists/*
     RUN chown -R ${NB_USER} /usr/local/lib/R 
 # prep base locale to keep system sane 
