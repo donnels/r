@@ -2,7 +2,12 @@ name: Docker
 
 on:
   push:
+    paths:
+      - 'docker/**'
+      - '.github/workflows/docker-publish.yml'
     branches: [ "main" ]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ "main" ]
 

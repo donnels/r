@@ -37,8 +37,8 @@ jobs:
       - name: run openscad container against this repo
         run: |
           cd data
-          docker run -v "$PWD":/documents/ --name r $container_r ./normalDist.R normalDist.svg
-          docker run -v "$PWD":/documents/ --name r $container_r ./stone1.R stone1.svg
+          docker run --rm -v "$PWD":/documents/ --name rrr $container_r ./normalDist.R normalDist.svg
+          docker run --rm -v "$PWD":/documents/ --name rrr $container_r ./stone1.R stone1.svg
 
       - name: Make the PDFs and HTMLs
         id: asciidoc-2-html-and-pdf
