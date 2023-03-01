@@ -1,0 +1,60 @@
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: asciidoc pdf and html
+
+on:
+  push:
+    paths:
+      - 'data/**'
+      - '**.adoc'
+      - '**.asciidoc'
+      - '.github/workflows/adoc.yml'
+    branches: [ "main" ]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      container_asciidoc: ghcr.io/donnels/asciidoc:main
+      container_r: ghcr.io/donnels/r:main
+      
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Pull the containers required to build
+        id: pull-containers
+        run: |
+          #This really just makes the pull shorter if there are more than one to pull
+          docker pull $container_asciidoc &
+          docker pull $container_r &
+          wait
+          
+      - name: run openscad container against this repo
+        run: |
+          cd data
+          docker run -v "$PWD":/documents/ --name r $container_r ./normalDist.R normalDist.svg
+          docker run -v "$PWD":/documents/ --name r $container_r ./stone1.R stone1.svg
+
+      - name: Make the PDFs and HTMLs
+        id: asciidoc-2-html-and-pdf
+        run: |
+          docker run -v "$PWD":/documents/ --name asciidoc-to-pdf $container_asciidoc asciidoctor-pdf -D /documents/docs *.asciidoc
+          docker run -v "$PWD":/documents/ --name asciidoc-to-html $container_asciidoc asciidoctor -D /documents/docs *.asciidoc
+
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if [ -n "$(git status --porcelain)" ]; then echo "true"; else echo "false"; fi)
+
+      - name: Update changes in GitHub repository
+        if: steps.git-check.outputs.modified == 'true'
+        run:  |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m '[automated commit] push changed files from actions'
+          git push

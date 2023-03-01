@@ -5,7 +5,7 @@ if (interactive()) {
   interactive <- interactive()
   #probably running on my laptop so set these manually for testing through gui (rstudio)
   filename <- "normalDist.svg"
-  setwd("r/data")
+  setwd("/Users/seandonnellan/Documents/Github/donnels/r/data")
 } else {
   #probably running in a docker or similar
   args <- commandArgs(trailingOnly = TRUE)
