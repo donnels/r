@@ -29,6 +29,7 @@ df <- data.frame(x = seq(-4, 4, length.out = 1000))
 df$density <- dnorm(df$x)
 # Find the density values at z-scores of different values
 x_vals <- c(1,2,3)
+roundn <- 4
 density_vals <- dnorm(x_vals)
 percent_vals <- round(pnorm(x_vals) - pnorm(x_vals*-1), 4)*100
 isectdf <- data.frame(cbind(x = x_vals, density = density_vals, percent = percent_vals))
