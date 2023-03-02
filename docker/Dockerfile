@@ -16,10 +16,11 @@ FROM debian:stable-slim as base-setup
         && apt-get -y install \
             python3 python3-pip \
             locales \
+            software-properties-common \
  		    ed less vim-tiny \
     		wget curl ca-certificates git \
-            libssl-dev libunwind-dev \
-    		fontconfig fonts-texgyre fonts-liberation fonts-liberation2 ghostscript \
+            libssl-dev libunwind-dev libgdal-dev \
+    		pandoc fontconfig fonts-texgyre fonts-liberation fonts-liberation2 ghostscript \
             r-cran-rlang r-base-core r-base-dev r-api-4.0 r-cran-devtools \
             r-cran-cairo libcairo2-dev \
         && apt-get purge && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -30,6 +31,14 @@ FROM debian:stable-slim as base-setup
 	    && /usr/sbin/update-locale LANG=en_US.UTF-8
     ENV LC_ALL en_US.UTF-8
     ENV LANG en_US.UTF-8
+# add MS contrib fonts
+    RUN apt-add-repository-contrib \
+    && echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections \
+    && apt-get update && apt-get install -y \
+        ttf-mscorefonts-installer \
+        libfontconfig1-dev \
+    && apt-get purge && apt-get clean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+    RUN fc-cache -f -v
 
     WORKDIR ${HOME}
 
