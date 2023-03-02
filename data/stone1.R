@@ -18,6 +18,7 @@ if (interactive()) {
 }
 svg(file = filename )
 
+
 vars <- data.frame( echo = 6, g = 9.8, v_snd = 340)
 t <- seq(0, vars$echo , length.out = 10000) # time interval of ECHO seconds and n points
 df <- data.frame( t = t,
