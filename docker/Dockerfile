@@ -32,7 +32,7 @@ FROM debian:stable-slim as base-setup
     ENV LC_ALL en_US.UTF-8
     ENV LANG en_US.UTF-8
 # add MS contrib fonts
-    RUN apt-add-repository-contrib \
+    RUN apt-add-repository contrib \
     && echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections \
     && apt-get update && apt-get install -y \
         ttf-mscorefonts-installer \
