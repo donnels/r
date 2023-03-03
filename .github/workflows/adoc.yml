@@ -38,13 +38,13 @@ jobs:
         run: |
           cd data
           docker run --rm -v "$PWD":/data --name r1 $container_r ./normalDist.R normalDist.svg
-          #docker run --rm -v "$PWD":/data --name r2 $container_r ./stone1.R stone1.svg
+          docker run --rm -v "$PWD":/data --name r2 $container_r ./stone1.R stone1.svg
 
       - name: Make the PDFs and HTMLs
         id: asciidoc-2-html-and-pdf
         run: |
-          docker run -v "$PWD":/documents/ --name asciidoc-to-pdf $container_asciidoc asciidoctor-pdf -D /documents/docs *.asciidoc
-          docker run -v "$PWD":/documents/ --name asciidoc-to-html $container_asciidoc asciidoctor -D /documents/docs *.asciidoc
+          docker run --rm -v "$PWD":/documents/ --name asciidoc-to-pdf $container_asciidoc asciidoctor-pdf -D /documents/docs *.asciidoc
+          docker run --rm -v "$PWD":/documents/ --name asciidoc-to-html $container_asciidoc asciidoctor -D /documents/docs *.asciidoc
 
       - name: Check for modified files
         id: git-check

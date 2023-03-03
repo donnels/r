@@ -1,3 +1,12 @@
-= R
+= R container
 
-An R container for building in github actions and for use in headless mode
+== Aim
+An R container for building in github actions and for use in headless mode.
+
+== Example output
+
+.Example - normal distribution
+image::./data/normalDist.svg[]
+
+.Example - stone dropped in well
+image::./data/stoneDrop.svg[]
