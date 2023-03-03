@@ -51,7 +51,7 @@ color_cutoffs <- c(-Inf, -2, -1, 0, 1, 2, Inf)
 # Add a column with color categories
 df$category <- cut(df$x, breaks = color_cutoffs, labels = labeldf$labels)
 plot <- ggplot(df, aes(x, density)) +
-  geom_area(aes(fill = category), alpha = 0.5) + geom_line(size = 1.2) +
+  geom_area(aes(fill = category), alpha = 0.5) + geom_line(linewidth = 1.2) +
   scale_fill_manual(values = labeldf$colors, labels = labeldf$labels) +
   geom_vline(linetype = "dashed", color = "lightblue", xintercept = c(isectdf$x,isectdf$x*-1)) +
   geom_text(data=isectdf, x = isectdf$x, y = .4, aes( label = x)) +

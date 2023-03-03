@@ -34,7 +34,8 @@ jobs:
           docker pull $container_r &
           wait
           
-      - name: run openscad container against this repo
+      - name: run R container against this repo
+        id: r-data-2-visual
         run: |
           cd data
           docker run --rm -v "$PWD":/data --name r1 $container_r ./normalDist.R normalDist.svg
