@@ -4,7 +4,7 @@
 if (interactive()) {
   interactive <- interactive()
   #probably running on my laptop so set these manually for testing through gui (rstudio)
-  filename <- "normalDist.svg"
+  filename <- "heating.svg"
   setwd("/Users/seandonnellan/Documents/Github/donnels/r/data")
 } else {
   #probably running in a docker or similar
@@ -45,4 +45,4 @@ p <- ggplot(data, aes(x = time, y = pressure)) +
   theme_minimal()
 
 # Save the plot as an SVG file
-ggsave(filename, plot = p, device = "svg")
+ggsave(filename, plot = p, device = "png")
