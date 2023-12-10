@@ -38,8 +38,8 @@ jobs:
         id: r-data-2-visual
         run: |
           cd data
-          docker run --rm -v "$PWD":/data --name r1 $container_r ./normalDist.R normalDist.svg
-          docker run --rm -v "$PWD":/data --name r2 $container_r ./stone1.R stone1.svg
+          #docker run --rm -v "$PWD":/data --name r1 $container_r ./normalDist.R normalDist.svg
+          #docker run --rm -v "$PWD":/data --name r2 $container_r ./stone1.R stone1.svg
           docker run --rm -v "$PWD":/data --name r2 $container_r ./heating.R heating.svg
 
       - name: Make the PDFs and HTMLs
